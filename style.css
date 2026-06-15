@@ -1,0 +1,359 @@
+/* ============================================
+     TOKEN WARNA & TIPOGRAFI
+     ============================================ */
+  :root{
+    --bg: #FDF1F6;            /* latar belakang pink muda */
+    --surface: #FFFFFF;       /* permukaan kartu */
+    --ink: #7A2E4F;           /* merah marun keunguan - warna utama teks */
+    --ink-soft: #B07690;      /* pink keabu-abuan - teks sekunder */
+    --line: #F6D9E6;          /* garis pembatas pink tipis */
+    --focus: #FF6FA0;         /* pink cerah - status "hadir/fokus" */
+    --warn: #FF9E6D;          /* oranye - status "AFK / peringatan" */
+    --danger: #E0567B;        /* pink kemerahan - pelanggaran tab */
+    --success: #4C9F70;       /* hijau - jawaban benar / selesai */
+
+    --font-display: 'Sora', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+
+  *{ box-sizing: border-box; margin:0; padding:0; }
+
+  body{
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--ink);
+    min-height: 100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding: 24px;
+    line-height: 1.5;
+  }
+
+  .app{
+    width: 100%;
+    max-width: 620px;
+    position: relative;
+  }
+
+  .card{
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 36px;
+    box-shadow: 0 8px 30px rgba(30,42,74,0.06);
+  }
+
+  .eyebrow{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin-bottom: 8px;
+  }
+
+  h1{
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 28px;
+    margin-bottom: 12px;
+    letter-spacing: -0.01em;
+  }
+
+  h2{
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+
+  p{ color: var(--ink-soft); font-size: 15px; }
+
+  /* ============================================
+     HALAMAN MULAI
+     ============================================ */
+  .field{ margin-top: 22px; }
+  .field label{
+    display:block;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: var(--ink);
+  }
+  .field input{
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    font-size: 15px;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--ink);
+    transition: border-color .15s ease;
+  }
+  .field input:focus{
+    outline: none;
+    border-color: var(--focus);
+  }
+
+  .btn{
+    margin-top: 26px;
+    width: 100%;
+    padding: 14px 18px;
+    border-radius: 10px;
+    border: none;
+    background: var(--ink);
+    color: #fff;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    transition: transform .12s ease, background .15s ease;
+  }
+  .btn:hover{ background:#5C2240; }
+  .btn:active{ transform: scale(0.98); }
+  .btn:disabled{ opacity:0.45; cursor:not-allowed; }
+
+  .btn-secondary{
+    background: var(--surface);
+    color: var(--ink);
+    border: 1.5px solid var(--line);
+  }
+  .btn-secondary:hover{ background: var(--bg); }
+
+  .hint-box{
+    margin-top: 24px;
+    padding: 14px 16px;
+    background: var(--bg);
+    border-radius: 10px;
+    border: 1px dashed var(--line);
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+  .hint-box b{ color: var(--ink); }
+
+  /* ============================================
+     INDIKATOR PRESENCE (SIGNATURE ELEMENT)
+     Lingkaran kecil yang berdenyut, merepresentasikan
+     status "kehadiran & perhatian" pengguna secara real-time.
+     ============================================ */
+  .presence-badge{
+    position: absolute;
+    top: -14px;
+    right: 18px;
+    display:flex;
+    align-items:center;
+    gap: 8px;
+    background: var(--ink);
+    color: #fff;
+    padding: 8px 14px 8px 10px;
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    font-weight: 500;
+    box-shadow: 0 4px 14px rgba(30,42,74,0.25);
+    z-index: 10;
+    transition: background .25s ease;
+  }
+  .presence-dot{
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--focus);
+    position: relative;
+  }
+  .presence-dot::after{
+    content:'';
+    position:absolute;
+    inset:0;
+    border-radius: 50%;
+    background: inherit;
+    animation: pulse 1.8s ease-out infinite;
+  }
+  @keyframes pulse{
+    0%   { transform: scale(1);   opacity: 0.7; }
+    100% { transform: scale(2.6); opacity: 0; }
+  }
+  .presence-badge.idle{ background: var(--warn); }
+  .presence-badge.idle .presence-dot{ background: #fff; }
+  .presence-badge.danger{ background: var(--danger); }
+  .presence-badge.danger .presence-dot{ background: #fff; }
+
+  /* ============================================
+     HALAMAN UJIAN
+     ============================================ */
+  .exam-top{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 22px;
+  }
+  .progress-label{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .timer{
+    font-family: var(--font-mono);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--ink);
+    padding: 6px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    background: var(--bg);
+  }
+  .timer.paused{ color: var(--warn); border-color: var(--warn); }
+
+  .progress-track{
+    height: 6px;
+    background: var(--line);
+    border-radius: 99px;
+    overflow:hidden;
+    margin-bottom: 28px;
+  }
+  .progress-fill{
+    height:100%;
+    background: var(--focus);
+    border-radius: 99px;
+    transition: width .3s ease;
+  }
+
+  .question-text{
+    font-family: var(--font-display);
+    font-size: 19px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.45;
+  }
+
+  .options{ display:flex; flex-direction:column; gap:10px; }
+  .option{
+    display:flex;
+    align-items:center;
+    gap: 12px;
+    padding: 13px 16px;
+    border: 1.5px solid var(--line);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: border-color .12s ease, background .12s ease;
+    font-size: 14.5px;
+  }
+  .option:hover{ border-color: var(--focus); background: var(--bg); }
+  .option.selected{ border-color: var(--focus); background: #FFE9F1; }
+  .option-letter{
+    width: 26px; height:26px;
+    border-radius:50%;
+    border: 1.5px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    font-family: var(--font-mono); font-size: 12px; font-weight:600;
+    flex-shrink:0;
+    color: var(--ink-soft);
+  }
+  .option.selected .option-letter{
+    border-color: var(--focus); color: var(--focus); background:#fff;
+  }
+
+  .nav-row{
+    display:flex; gap: 12px; margin-top: 28px;
+  }
+  .nav-row .btn{ margin-top:0; }
+
+  /* ============================================
+     OVERLAY PERINGATAN
+     ============================================ */
+  .overlay{
+    position: fixed; inset:0;
+    background: rgba(30,42,74,0.55);
+    display:none;
+    align-items:center; justify-content:center;
+    z-index: 100;
+    padding: 24px;
+  }
+  .overlay.show{ display:flex; }
+  .overlay-card{
+    background: #fff;
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 380px;
+    text-align:center;
+  }
+  .overlay-card .icon{ font-size: 38px; margin-bottom: 12px; }
+  .overlay-card h3{
+    font-family: var(--font-display);
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  .overlay-card p{ font-size: 14px; margin-bottom: 18px; }
+
+  /* ============================================
+     HALAMAN HASIL
+     ============================================ */
+  .score-display{
+    text-align:center;
+    padding: 28px 0;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 22px;
+  }
+  .score-display .num{
+    font-family: var(--font-display);
+    font-size: 52px;
+    font-weight: 800;
+    color: var(--ink);
+  }
+  .score-display .label{
+    font-family: var(--font-mono);
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--ink-soft);
+    margin-top: 4px;
+  }
+
+  .log-section h2{ margin-bottom: 12px; }
+  .log-stats{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 18px;
+  }
+  .log-stat{
+    background: var(--bg);
+    border-radius: 10px;
+    padding: 14px;
+    border: 1px solid var(--line);
+  }
+  .log-stat .stat-num{
+    font-family: var(--font-mono);
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .log-stat .stat-label{
+    font-size: 12px;
+    color: var(--ink-soft);
+    margin-top: 2px;
+  }
+
+  .log-list{
+    list-style:none;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    overflow:hidden;
+    max-height: 180px;
+    overflow-y:auto;
+  }
+  .log-list li{
+    padding: 10px 14px;
+    font-family: var(--font-mono);
+    font-size: 12.5px;
+    border-bottom: 1px solid var(--line);
+    color: var(--ink-soft);
+  }
+  .log-list li:last-child{ border-bottom:none; }
+  .log-list li .time{ color: var(--ink); font-weight:600; margin-right:8px; }
+
+  .hidden{ display:none !important; }

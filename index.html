@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Smart Exam | Simulasi E-Ujian Pervasif</title>
+
+<!-- Font dari Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- File tampilan (CSS) -->
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============================================
+       INDIKATOR PRESENCE (selalu terlihat saat ujian berjalan)
+       Ini adalah "Smart Detector" yang merepresentasikan
+       fitur Pervasive Computing: status kehadiran real-time
+       ============================================ -->
+  <div class="presence-badge hidden" id="presenceBadge">
+    <span class="presence-dot"></span>
+    <span id="presenceText">Focused</span>
+  </div>
+
+  <!-- ============================================
+       HALAMAN 1: MULAI UJIAN
+       ============================================ -->
+  <div class="card" id="startScreen">
+    <div class="eyebrow">Smart Exam · Context-Aware Platform</div>
+    <h1>Simulasi E-Ujian Pervasif</h1>
+    <p>Ujian ini diawasi oleh sistem yang sadar konteks: sistem akan memantau apakah Anda berpindah tab browser dan apakah Anda masih aktif di depan layar.</p>
+
+    <div class="field">
+      <label for="nameInput">Nama</label>
+      <input type="text" id="nameInput" placeholder="Masukkan nama lengkap">
+    </div>
+    <div class="field">
+      <label for="nimInput">NIM</label>
+      <input type="text" id="nimInput" placeholder="Masukkan NIM">
+    </div>
+
+    <button class="btn" id="startBtn">Mulai Ujian</button>
+
+    <div class="hint-box">
+      <b>Perhatian:</b> Selama ujian, jangan berpindah tab dan tetap aktif (gerakkan mouse / tekan tombol).
+      Sistem akan mencatat setiap pelanggaran ke dalam log perilaku.
+    </div>
+  </div>
+
+  <!-- ============================================
+       HALAMAN 2: UJIAN
+       ============================================ -->
+  <div class="card hidden" id="examScreen">
+    <div class="exam-top">
+      <div>
+        <div class="progress-label" id="progressLabel">Soal 1 dari 5</div>
+      </div>
+      <div class="timer" id="timerDisplay">05:00</div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill" style="width:20%"></div></div>
+
+    <div class="question-text" id="questionText">-</div>
+    <div class="options" id="optionsContainer"></div>
+
+    <div class="nav-row">
+      <button class="btn btn-secondary hidden" id="prevBtn">Sebelumnya</button>
+      <button class="btn" id="nextBtn">Selanjutnya</button>
+    </div>
+  </div>
+
+  <!-- ============================================
+       HALAMAN 3: HASIL
+       ============================================ -->
+  <div class="card hidden" id="resultScreen">
+    <div class="eyebrow">Ujian Selesai</div>
+    <div class="score-display">
+      <div class="num" id="scoreNum">0/5</div>
+      <div class="label">Skor Akhir</div>
+    </div>
+
+    <div class="log-section">
+      <h2>Log Perilaku</h2>
+      <div class="log-stats">
+        <div class="log-stat">
+          <div class="stat-num" id="tabSwitchCount">0</div>
+          <div class="stat-label">Kali pindah tab</div>
+        </div>
+        <div class="log-stat">
+          <div class="stat-num" id="afkTotalTime">0s</div>
+          <div class="stat-label">Total waktu AFK</div>
+        </div>
+      </div>
+      <ul class="log-list" id="logList"></ul>
+    </div>
+
+    <button class="btn" id="restartBtn" style="margin-top:24px;">Ulangi Ujian</button>
+  </div>
+
+</div>
+
+<!-- ============================================
+     OVERLAY: PERINGATAN PINDAH TAB
+     ============================================ -->
+<div class="overlay" id="tabWarningOverlay">
+  <div class="overlay-card">
+    <div class="icon">⚠️</div>
+    <h3>Anda Meninggalkan Halaman Ujian!</h3>
+    <p id="tabWarningText">Perpindahan tab telah dicatat dalam log perilaku.</p>
+    <button class="btn" id="tabWarningClose">Lanjutkan Ujian</button>
+  </div>
+</div>
+
+<!-- ============================================
+     OVERLAY: UJIAN DIKUNCI (terlalu banyak pelanggaran)
+     ============================================ -->
+<div class="overlay" id="lockOverlay">
+  <div class="overlay-card">
+    <div class="icon">🔒</div>
+    <h3>Ujian Dikunci</h3>
+    <p>Anda telah melebihi batas maksimal perpindahan tab. Ujian dihentikan secara otomatis dan jawaban Anda saat ini akan dinilai.</p>
+    <button class="btn" id="lockOverlayClose">Lihat Hasil</button>
+  </div>
+</div>
+
+<!-- File logika program (JavaScript) -->
+<script src="script.js"></script>
+
+</body>
+</html>
